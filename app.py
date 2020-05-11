@@ -1,30 +1,64 @@
+import csv
+
 todos = []
 stop = False
 
 def get_todos():
+    #add_one_task()
     global todos
     return todos
 
 def add_one_task(title):
-    # your code here
-    pass
+    return get_todos().append(title)
 
 def print_list():
     global todos
-    pass
+    y=1
+    print("Lista de tareas:")
+    for x in todos:
+        print(str(y) + ";" + x)
+        y=y+1
+
 
 def delete_task(number_to_delete):
     # your code here
-    pass
+    number_to_delete=int(number_to_delete)-1
+    return get_todos().pop(number_to_delete)
+    
 
 def save_todos():
     # your code here
-    pass
+    global todos
+    todos_file=""
+    i=0
+    for tareas in todos:
+       # todos_file = todos_file + ";" + tareas
+        
+        if i == 0:
+            todos_file = todos_file + tareas
+            i=i+1
+        else:
+            todos_file = todos_file + "," + tareas
+        
+    file_to_save = open("todos.csv","w+")
+    file_to_save.write(todos_file)
+    file_to_save.close()
 
-    
 def load_todos():
     # your code here
-    pass
+    global todos
+    file=open("todos.csv","r")
+    csv_f = csv.reader(file)
+    i=1
+    first=True
+    for row in csv_f:
+#        print(row)
+        for x in row:
+            todos.append(x)
+    print(todos)
+    file.close()
+    #print(todos)
+    #return todos
 
 # Below this code will only run if the entry file running was app.py
 if __name__ == '__main__':
